@@ -134,7 +134,8 @@ export default function EmployeeFormScreen() {
               address: "",
             }}
             validationSchema={validationSchema}
-            validateOnMount={true}
+            validateOnChange={true}
+            validateOnBlur={true}
             onSubmit={async (values) => {
               await new Promise((resolve) => {
                 setTimeout(resolve, 1500);
@@ -158,7 +159,6 @@ export default function EmployeeFormScreen() {
               handleBlur,
               handleSubmit,
               setFieldValue,
-              setFieldTouched,
               isSubmitting,
               isValid,
               resetForm,
@@ -172,6 +172,7 @@ export default function EmployeeFormScreen() {
                   onBlur={handleBlur("firstName")}
                   error={errors.firstName}
                   touched={touched.firstName}
+                  valid={touched.firstName && !errors.firstName}
                 />
 
                 <AppInput
@@ -182,6 +183,7 @@ export default function EmployeeFormScreen() {
                   onBlur={handleBlur("lastName")}
                   error={errors.lastName}
                   touched={touched.lastName}
+                  valid={touched.lastName && !errors.lastName}
                 />
 
                 <AppInput
@@ -192,6 +194,7 @@ export default function EmployeeFormScreen() {
                   onBlur={handleBlur("employeeId")}
                   error={errors.employeeId}
                   touched={touched.employeeId}
+                  valid={touched.employeeId && !errors.employeeId}
                 />
 
                 <AppInput
@@ -202,6 +205,7 @@ export default function EmployeeFormScreen() {
                   onBlur={handleBlur("email")}
                   error={errors.email}
                   touched={touched.email}
+                  valid={touched.email && !errors.email}
                 />
 
                 <AppInput
@@ -212,6 +216,7 @@ export default function EmployeeFormScreen() {
                   onBlur={handleBlur("phone")}
                   error={errors.phone}
                   touched={touched.phone}
+                  valid={touched.phone && !errors.phone}
                 />
 
                 <Text style={styles.label}>Department</Text>
@@ -253,6 +258,7 @@ export default function EmployeeFormScreen() {
                   onBlur={handleBlur("jobTitle")}
                   error={errors.jobTitle}
                   touched={touched.jobTitle}
+                  valid={touched.jobTitle && !errors.jobTitle}
                 />
 
                 <AppInput
@@ -263,6 +269,7 @@ export default function EmployeeFormScreen() {
                   onBlur={handleBlur("address")}
                   error={errors.address}
                   touched={touched.address}
+                  valid={touched.address && !errors.address}
                   multiline
                 />
 
@@ -341,5 +348,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: -8,
     marginBottom: 12,
+  },
+  validInput: {
+    borderColor: "#16A34A",
   },
 });

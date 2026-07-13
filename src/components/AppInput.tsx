@@ -9,6 +9,7 @@ type Props = {
   value: string;
   error?: string;
   touched?: boolean;
+  valid?: boolean;
   onChangeText: (text: string) => void;
   onBlur: (e: any) => void;
   keyboardType?: "default" | "email-address" | "phone-pad" | "numeric";
@@ -21,6 +22,7 @@ export function AppInput({
   value,
   error,
   touched,
+  valid,
   onChangeText,
   onBlur,
   keyboardType = "default",
@@ -53,6 +55,7 @@ export function AppInput({
           isFocused && styles.focusedInput,
           multiline && styles.multiline,
           touched && error && styles.inputError,
+          touched && valid && styles.validInput,
         ]}
         placeholder={placeholder}
         placeholderTextColor="#94A3B8"
@@ -113,5 +116,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "600",
     marginTop: 6,
+  },
+  validInput: {
+    borderColor: "#16A34A",
   },
 });

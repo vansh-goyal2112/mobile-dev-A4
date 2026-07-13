@@ -16,6 +16,7 @@ type Props = {
   value: string;
   error?: string;
   touched?: boolean;
+  valid?: boolean;
   onChangeText: (text: string) => void;
   onBlur: (e: any) => void;
 };
@@ -26,6 +27,7 @@ export function PasswordInput({
   value,
   error,
   touched,
+  valid,
   onChangeText,
   onBlur,
 }: Props) {
@@ -60,6 +62,7 @@ export function PasswordInput({
           },
           isFocused && styles.focusedInput,
           touched && error && styles.inputError,
+          touched && valid && styles.validInput,
         ]}
       >
         <TextInput
@@ -138,5 +141,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "600",
     marginTop: 6,
+  },
+  validInput: {
+    borderColor: "#16A34A",
   },
 });
