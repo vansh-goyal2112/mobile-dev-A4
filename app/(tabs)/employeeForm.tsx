@@ -159,6 +159,7 @@ export default function EmployeeFormScreen() {
               handleBlur,
               handleSubmit,
               setFieldValue,
+              setFieldTouched,
               isSubmitting,
               isValid,
               resetForm,
@@ -168,7 +169,10 @@ export default function EmployeeFormScreen() {
                   label="First Name"
                   placeholder="Enter first name"
                   value={values.firstName}
-                  onChangeText={handleChange("firstName")}
+                  onChangeText={(text) => {
+                    handleChange("firstName")(text);
+                    setFieldTouched("firstName", true, false);
+                  }}
                   onBlur={handleBlur("firstName")}
                   error={errors.firstName}
                   touched={touched.firstName}
@@ -179,7 +183,10 @@ export default function EmployeeFormScreen() {
                   label="Last Name"
                   placeholder="Enter last name"
                   value={values.lastName}
-                  onChangeText={handleChange("lastName")}
+                  onChangeText={(text) => {
+                      handleChange("lastName")(text);
+                      setFieldTouched("lastName", true, false);
+                    }}
                   onBlur={handleBlur("lastName")}
                   error={errors.lastName}
                   touched={touched.lastName}
@@ -190,7 +197,10 @@ export default function EmployeeFormScreen() {
                   label="Employee ID"
                   placeholder="EMP1001"
                   value={values.employeeId}
-                  onChangeText={handleChange("employeeId")}
+                  onChangeText={(text) => {
+                    handleChange("employeeId")(text);
+                    setFieldTouched("employeeId", true, false);
+                  }}
                   onBlur={handleBlur("employeeId")}
                   error={errors.employeeId}
                   touched={touched.employeeId}
@@ -201,7 +211,10 @@ export default function EmployeeFormScreen() {
                   label="Email"
                   placeholder="employee@email.com"
                   value={values.email}
-                  onChangeText={handleChange("email")}
+                  onChangeText={(text) => {
+                    handleChange("email")(text);
+                    setFieldTouched("email", true, false);
+                  }}
                   onBlur={handleBlur("email")}
                   error={errors.email}
                   touched={touched.email}
@@ -212,7 +225,10 @@ export default function EmployeeFormScreen() {
                   label="Phone Number"
                   placeholder="4035551234"
                   value={values.phone}
-                  onChangeText={handleChange("phone")}
+                  onChangeText={(text) => {
+                    handleChange("phone")(text);
+                    setFieldTouched("phone", true, false);
+                  }}
                   onBlur={handleBlur("phone")}
                   error={errors.phone}
                   touched={touched.phone}
@@ -232,6 +248,7 @@ export default function EmployeeFormScreen() {
                     selectedValue={values.department}
                     onValueChange={(value) => {
                       setFieldValue("department", value);
+                      setFieldTouched("department", true, false);
                     }}
                   >
                     <Picker.Item label="Select department" value="" />
@@ -254,7 +271,10 @@ export default function EmployeeFormScreen() {
                   label="Job Title"
                   placeholder="Junior Developer"
                   value={values.jobTitle}
-                  onChangeText={handleChange("jobTitle")}
+                  onChangeText={(text) => {
+                    handleChange("jobTitle")(text);
+                    setFieldTouched("jobTitle", true, false);
+                  }}
                   onBlur={handleBlur("jobTitle")}
                   error={errors.jobTitle}
                   touched={touched.jobTitle}
@@ -265,7 +285,10 @@ export default function EmployeeFormScreen() {
                   label="Address"
                   placeholder="Enter full address"
                   value={values.address}
-                  onChangeText={handleChange("address")}
+                  onChangeText={(text) => {
+                    handleChange("address")(text);
+                    setFieldTouched("address", true, false);
+                  }}
                   onBlur={handleBlur("address")}
                   error={errors.address}
                   touched={touched.address}

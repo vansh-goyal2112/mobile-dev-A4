@@ -123,6 +123,7 @@ export default function SignInScreen() {
               handleChange,
               handleBlur,
               handleSubmit,
+              setFieldTouched,
               isSubmitting,
               isValid,
               resetForm,
@@ -132,7 +133,10 @@ export default function SignInScreen() {
                   label="Email"
                   placeholder="student@email.com"
                   value={values.email}
-                  onChangeText={handleChange("email")}
+                  onChangeText={(text) => {
+                    handleChange("email")(text);
+                    setFieldTouched("email", true, false);
+                  }}
                   onBlur={handleBlur("email")}
                   error={errors.email}
                   touched={touched.email}
@@ -143,7 +147,10 @@ export default function SignInScreen() {
                   label="Password"
                   placeholder="Enter password"
                   value={values.password}
-                  onChangeText={handleChange("password")}
+                  onChangeText={(text) => {
+                    handleChange("password")(text);
+                    setFieldTouched("password", true, false);
+                  }}
                   onBlur={handleBlur("password")}
                   error={errors.password}
                   touched={touched.password}

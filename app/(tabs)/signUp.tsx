@@ -141,6 +141,7 @@ export default function SignUpScreen() {
               handleChange,
               handleBlur,
               handleSubmit,
+              setFieldTouched,
               isSubmitting,
               isValid,
               resetForm,
@@ -150,7 +151,10 @@ export default function SignUpScreen() {
                   label="Full Name"
                   placeholder="John Smith"
                   value={values.fullName}
-                  onChangeText={handleChange("fullName")}
+                  onChangeText={(text) => {
+                    handleChange("fullName")(text);
+                    setFieldTouched("fullName", true, false);
+                  }}
                   onBlur={handleBlur("fullName")}
                   error={errors.fullName}
                   touched={touched.fullName}
@@ -161,7 +165,10 @@ export default function SignUpScreen() {
                   label="Email"
                   placeholder="john@email.com"
                   value={values.email}
-                  onChangeText={handleChange("email")}
+                  onChangeText={(text) => {
+                    handleChange("email")(text);
+                    setFieldTouched("email", true, false);
+                  }}
                   onBlur={handleBlur("email")}
                   error={errors.email}
                   touched={touched.email}
@@ -172,7 +179,10 @@ export default function SignUpScreen() {
                   label="Password"
                   placeholder="Enter password"
                   value={values.password}
-                  onChangeText={handleChange("password")}
+                  onChangeText={(text) => {
+                    handleChange("password")(text);
+                    setFieldTouched("password", true, false);
+                  }}
                   onBlur={handleBlur("password")}
                   error={errors.password}
                   touched={touched.password}
@@ -183,7 +193,10 @@ export default function SignUpScreen() {
                   label="Confirm Password"
                   placeholder="Confirm password"
                   value={values.confirmPassword}
-                  onChangeText={handleChange("confirmPassword")}
+                  onChangeText={(text) => {
+                    handleChange("confirmPassword")(text);
+                    setFieldTouched("confirmPassword", true, false);
+                  }}
                   onBlur={handleBlur("confirmPassword")}
                   error={errors.confirmPassword}
                   touched={touched.confirmPassword}
