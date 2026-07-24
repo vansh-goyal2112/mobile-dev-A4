@@ -1,6 +1,11 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+} from "react-native";
 
-type Props = {
+type AppButtonProps = {
   title: string;
   onPress: () => void;
   disabled?: boolean;
@@ -14,21 +19,41 @@ export function AppButton({
   disabled = false,
   loading = false,
   secondary = false,
-}: Props) {
+}: AppButtonProps) {
+  const isDisabled =
+    disabled || loading;
+
   return (
     <Pressable
-      style={[
+      style={({ pressed }) => [
         styles.button,
-        secondary && styles.secondaryButton,
-        disabled && styles.disabledButton,
+        secondary &&
+          styles.secondaryButton,
+        isDisabled &&
+          styles.disabledButton,
+        pressed &&
+          !isDisabled &&
+          styles.pressedButton,
       ]}
       onPress={onPress}
-      disabled={disabled || loading}
+      disabled={isDisabled}
     >
       {loading ? (
-        <ActivityIndicator color="white" />
+        <ActivityIndicator
+          color={
+            secondary
+              ? "#1D4ED8"
+              : "white"
+          }
+        />
       ) : (
-        <Text style={[styles.text, secondary && styles.secondaryText]}>
+        <Text
+          style={[
+            styles.text,
+            secondary &&
+              styles.secondaryText,
+          ]}
+        >
           {title}
         </Text>
       )}
@@ -38,23 +63,34 @@ export function AppButton({
 
 const styles = StyleSheet.create({
   button: {
+    minHeight: 52,
     backgroundColor: "#2563EB",
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
     borderRadius: 14,
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 14,
   },
+
   secondaryButton: {
     backgroundColor: "#DBEAFE",
   },
+
   disabledButton: {
     opacity: 0.5,
   },
+
+  pressedButton: {
+    opacity: 0.8,
+  },
+
   text: {
     color: "white",
     fontSize: 16,
     fontWeight: "700",
   },
+
   secondaryText: {
     color: "#1D4ED8",
   },

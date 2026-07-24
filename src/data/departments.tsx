@@ -1,8 +1,9 @@
 export const departments = [
-  "Software Development",
-  "Human Resources",
-  "Marketing",
-  "Finance",
-  "Sales",
   "Information Technology",
+  "Human Resources",
+  "Finance",
+  "Marketing",
+  "Operations",
+  "Customer Service",
+  "Administration",
 ];

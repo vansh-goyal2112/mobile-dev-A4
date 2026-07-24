@@ -1,25 +1,34 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import {
+  useLocalSearchParams,
+  useRouter,
+} from "expo-router";
+import {
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Text, View } from "react-native";
 
 import { AppButton } from "../src/components/AppButton";
 import { useAppContext } from "../src/context/AppContext";
 
 export default function SuccessScreen() {
   const router = useRouter();
-  const { message } = useLocalSearchParams();
-  const { isDark } = useAppContext();
 
-  const goHome = () => {
-    router.push({
-      pathname: "/",
-    });
+  const { message } =
+    useLocalSearchParams<{
+      message?: string;
+    }>();
+
+  const { isDark } =
+    useAppContext();
+
+  const goToRecords = () => {
+    router.replace("/(tabs)/submissions");
   };
 
-  const goEmployeeForm = () => {
-    router.push({
-      pathname: "/employeeForm",
-    });
+  const goToForm = () => {
+    router.replace("/(tabs)/employeeForm");
   };
 
   return (
@@ -27,7 +36,9 @@ export default function SuccessScreen() {
       style={[
         styles.container,
         {
-          backgroundColor: isDark ? "#0F172A" : "#EFF6FF",
+          backgroundColor: isDark
+            ? "#0F172A"
+            : "#EFF6FF",
         },
       ]}
     >
@@ -35,20 +46,29 @@ export default function SuccessScreen() {
         style={[
           styles.card,
           {
-            backgroundColor: isDark ? "#1E293B" : "white",
-            borderColor: isDark ? "#334155" : "#DBEAFE",
+            backgroundColor: isDark
+              ? "#1E293B"
+              : "white",
+
+            borderColor: isDark
+              ? "#334155"
+              : "#DBEAFE",
           },
         ]}
       >
         <View style={styles.circle}>
-          <Text style={styles.check}>✓</Text>
+          <Text style={styles.check}>
+            ✓
+          </Text>
         </View>
 
         <Text
           style={[
             styles.title,
             {
-              color: isDark ? "white" : "#0F172A",
+              color: isDark
+                ? "white"
+                : "#0F172A",
             },
           ]}
         >
@@ -59,21 +79,24 @@ export default function SuccessScreen() {
           style={[
             styles.message,
             {
-              color: isDark ? "#CBD5E1" : "#64748B",
+              color: isDark
+                ? "#CBD5E1"
+                : "#64748B",
             },
           ]}
         >
-          {message || "Your form has been submitted successfully."}
+          {message ??
+            "Your employee record has been saved successfully."}
         </Text>
 
         <AppButton
-          title="Employee Form"
-          onPress={goEmployeeForm}
+          title="View Employee Records"
+          onPress={goToRecords}
         />
 
         <AppButton
-          title="Back Home"
-          onPress={goHome}
+          title="Employee Form"
+          onPress={goToForm}
           secondary
         />
       </View>

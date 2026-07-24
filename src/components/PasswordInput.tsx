@@ -5,20 +5,27 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TextInputProps,
   View,
 } from "react-native";
 
 import { useAppContext } from "../context/AppContext";
 
-type Props = {
+type PasswordInputProps = {
   label: string;
   placeholder: string;
   value: string;
   error?: string;
   touched?: boolean;
   valid?: boolean;
+
   onChangeText: (text: string) => void;
-  onBlur: (e: any) => void;
+  onBlur: TextInputProps["onBlur"];
+
+  autoCapitalize?: TextInputProps["autoCapitalize"];
+  autoCorrect?: boolean;
+  editable?: boolean;
+  returnKeyType?: TextInputProps["returnKeyType"];
 };
 
 export function PasswordInput({
@@ -30,15 +37,23 @@ export function PasswordInput({
   valid,
   onChangeText,
   onBlur,
-}: Props) {
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [isFocused, setIsFocused] = useState(false);
 
+  autoCapitalize = "none",
+  autoCorrect = false,
+  editable = true,
+  returnKeyType = "done",
+}: PasswordInputProps) {
   const { isDark } = useAppContext();
 
-  const togglePassword = () => {
-    setSecureTextEntry(!secureTextEntry);
-  };
+  const [secureTextEntry, setSecureTextEntry] =
+    useState(true);
+
+  const [isFocused, setIsFocused] =
+    useState(false);
+
+  function togglePassword() {
+    setSecureTextEntry((previous) => !previous);
+  }
 
   return (
     <View style={styles.container}>
@@ -46,7 +61,9 @@ export function PasswordInput({
         style={[
           styles.label,
           {
-            color: isDark ? "#E2E8F0" : "#1E293B",
+            color: isDark
+              ? "#E2E8F0"
+              : "#1E293B",
           },
         ]}
       >
@@ -57,19 +74,34 @@ export function PasswordInput({
         style={[
           styles.inputContainer,
           {
-            backgroundColor: isDark ? "#0F172A" : "white",
-            borderColor: isDark ? "#334155" : "#CBD5E1",
+            backgroundColor: isDark
+              ? "#0F172A"
+              : "white",
+
+            borderColor: isDark
+              ? "#334155"
+              : "#CBD5E1",
           },
-          isFocused && styles.focusedInput,
-          touched && error && styles.inputError,
-          touched && valid && styles.validInput,
+
+          isFocused &&
+            styles.focusedInput,
+
+          touched &&
+            error &&
+            styles.inputError,
+
+          touched &&
+            valid &&
+            styles.validInput,
         ]}
       >
         <TextInput
           style={[
             styles.input,
             {
-              color: isDark ? "white" : "#0F172A",
+              color: isDark
+                ? "white"
+                : "#0F172A",
             },
           ]}
           placeholder={placeholder}
@@ -81,23 +113,40 @@ export function PasswordInput({
           }}
           onBlur={(event) => {
             setIsFocused(false);
-            onBlur(event);
+            onBlur?.(event);
           }}
           secureTextEntry={secureTextEntry}
+          autoCapitalize={autoCapitalize}
+          autoCorrect={autoCorrect}
+          editable={editable}
+          returnKeyType={returnKeyType}
         />
 
-        <Pressable onPress={togglePassword}>
+        <Pressable
+          onPress={togglePassword}
+          hitSlop={8}
+        >
           <Ionicons
-            name={secureTextEntry ? "eye-off-outline" : "eye-outline"}
+            name={
+              secureTextEntry
+                ? "eye-off-outline"
+                : "eye-outline"
+            }
             size={22}
-            color={isDark ? "#CBD5E1" : "#64748B"}
+            color={
+              isDark
+                ? "#CBD5E1"
+                : "#64748B"
+            }
           />
         </Pressable>
       </View>
 
-      {touched && error && (
-        <Text style={styles.error}>{error}</Text>
-      )}
+      {touched && error ? (
+        <Text style={styles.error}>
+          {error}
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -136,13 +185,14 @@ const styles = StyleSheet.create({
     borderColor: "#DC2626",
   },
 
+  validInput: {
+    borderColor: "#16A34A",
+  },
+
   error: {
     color: "#DC2626",
     fontSize: 13,
     fontWeight: "600",
     marginTop: 6,
-  },
-  validInput: {
-    borderColor: "#16A34A",
   },
 });

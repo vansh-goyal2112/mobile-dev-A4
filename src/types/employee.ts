@@ -5,7 +5,6 @@ export type Employee = {
   email: string;
   phone: string;
   department: string;
-  fullTime: boolean;
-  startDate: Date;
+  jobTitle: string;
   address: string;
 };
